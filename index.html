@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimator Naționalitate</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <h1>Estimator Naționalitate</h1>
+    <p class="description">Introdu un nume și vezi probabilitatea de origine.</p>
+
+    <div class="controls">
+        <input type="text" id="nameInput" placeholder="Introdu un nume...">
+        <button id="estimateBtn">Estimează</button>
+        <button id="refreshBtn">Reset</button>
+    </div>
+
+    <div id="resultsContainer"></div>
+
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Steag</th>
+                <th>Țară</th>
+                <th>Probabilitate</th>
+                <th>Cod</th>
+                <th>Meme</th>
+            </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+    </table>
+</div>
+
+<!-- 🔥 Modal pentru imagine mărită -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
