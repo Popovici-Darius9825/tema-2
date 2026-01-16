@@ -2,20 +2,26 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estimator Naționalitate</title>
+    <title>Tema Popovici Darius 3111b</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app-container">
-    <h1>Estimator Naționalitate</h1>
-    <p class="description">Introdu un nume și vezi probabilitatea de origine.</p>
+
+    <h1>Estimare Naționalitate</h1>
+    <p class="description">
+        Introdu un nume pentru a estima naționalitatea asociată, folosind API-ul public Nationalize.io.
+    </p>
 
     <div class="controls">
         <input type="text" id="nameInput" placeholder="Introdu un nume...">
-        <button id="estimateBtn">Estimează</button>
-        <button id="refreshBtn">Reset</button>
+        <button id="estimateBtn">Estimează naționalitatea</button>
+        <button id="refreshBtn">Refresh</button>
+    </div>
+
+    <div id="infoCard" class="info-card">
+        Această aplicație trimite numele introdus către API-ul Nationalize.io și afișează țările cele mai probabile.
     </div>
 
     <div id="resultsContainer"></div>
@@ -24,22 +30,28 @@
         <thead>
             <tr>
                 <th>Steag</th>
-                <th>Țară</th>
+                <th>Nume țară</th>
                 <th>Probabilitate</th>
-                <th>Cod</th>
+                <th>Cod ISO</th>
                 <th>Meme</th>
             </tr>
         </thead>
         <tbody id="resultsBody"></tbody>
     </table>
+
 </div>
 
-<!-- 🔥 Modal pentru imagine mărită -->
+<!-- Modal pentru imagine mărită -->
 <div id="imageModal" class="modal">
     <span class="close">&times;</span>
     <img class="modal-content" id="modalImage">
 </div>
 
+<!-- Memes -->
+<script src="memes.js"></script>
+
+<!-- Script principal -->
 <script src="script.js"></script>
+
 </body>
 </html>

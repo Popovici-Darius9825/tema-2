@@ -1,3 +1,6 @@
+// =========================
+//  ELEMENTE DIN HTML
+// =========================
 const nameInput = document.getElementById("nameInput");
 const estimateBtn = document.getElementById("estimateBtn");
 const refreshBtn = document.getElementById("refreshBtn");
@@ -9,27 +12,16 @@ refreshBtn.addEventListener("click", refreshView);
 
 const regionNames = new Intl.DisplayNames(["ro", "en"], { type: "region" });
 
-let memesByCountry = {};
-let memesLoaded = false;
-
-// Încarcă meme din memes.json
-async function loadMemes() {
-    if (memesLoaded) return;
-    try {
-        const response = await fetch('memes.json');
-        memesByCountry = await response.json();
-        memesLoaded = true;
-    } catch (error) {
-        console.error('Error loading memes:', error);
-    }
+// =========================
+//  MEME RANDOM (din memes.js)
+// =========================
+function getRandomMeme() {
+    return allMemes[Math.floor(Math.random() * allMemes.length)];
 }
 
-// Alege un meme random
-function getRandomMemeForCountry(code) {
-    const list = memesByCountry[code] || memesByCountry["RANDOM"];
-    return list[Math.floor(Math.random() * list.length)];
-}
-
+// =========================
+//  FUNCTIA PRINCIPALA
+// =========================
 async function estimateNationality() {
     const name = nameInput.value.trim();
     resultsContainer.innerHTML = "";
@@ -44,17 +36,16 @@ async function estimateNationality() {
 
     try {
         const response = await fetch(`https://api.nationalize.io?name=${encodeURIComponent(name)}`);
-        if (!response.ok) throw new Error("API-ul nu a răspuns corespunzător.");
+        if (!response.ok) throw new Error("API-ul nu a răspuns.");
 
         const data = await response.json();
+
         if (!data.country || data.country.length === 0) {
-            resultsContainer.innerHTML = `<p class="empty-message">Nu există rezultate pentru numele <strong>${name}</strong>.</p>`;
+            resultsContainer.innerHTML = `<p>Nu există rezultate pentru <strong>${name}</strong>.</p>`;
             return;
         }
 
-        await loadMemes();
-
-        resultsContainer.innerHTML = `<p>Rezultate pentru numele <strong>${name}</strong>:</p>`;
+        resultsContainer.innerHTML = `<p>Rezultate pentru <strong>${name}</strong>:</p>`;
 
         data.country.forEach(item => {
             const tr = document.createElement("tr");
@@ -72,7 +63,7 @@ async function estimateNationality() {
 
             // Probabilitate
             const probTd = document.createElement("td");
-            probTd.textContent = (item.probability * 100).toFixed(2) + " %";
+            probTd.textContent = (item.probability * 100).toFixed(2) + "%";
 
             // Cod ISO
             const codeTd = document.createElement("td");
@@ -81,7 +72,7 @@ async function estimateNationality() {
             // Meme
             const memeTd = document.createElement("td");
             const memeImg = document.createElement("img");
-            memeImg.src = getRandomMemeForCountry(item.country_id);
+            memeImg.src = getRandomMeme();
             memeImg.style.width = "60px";
             memeImg.style.height = "60px";
             memeImg.style.borderRadius = "8px";
@@ -104,17 +95,22 @@ async function estimateNationality() {
         });
 
     } catch (error) {
-        resultsContainer.innerHTML = `<p class="error-message">Eroare: ${error.message}</p>`;
+        resultsContainer.innerHTML = `<p>Eroare: ${error.message}</p>`;
     }
 }
 
+// =========================
+//  REFRESH
+// =========================
 function refreshView() {
     nameInput.value = "";
     resultsContainer.innerHTML = "";
     resultsBody.innerHTML = "";
 }
 
-// Închide modalul
+// =========================
+//  MODAL
+// =========================
 document.querySelector(".close").addEventListener("click", () => {
     document.getElementById("imageModal").style.display = "none";
 });

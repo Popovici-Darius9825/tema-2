@@ -57,6 +57,17 @@ h1 {
     transform: translateY(-1px);
 }
 
+.info-card {
+    background: #f4f7ff;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #0078ff;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Tabel */
 #resultsTable {
     width: 100%;
     border-collapse: collapse;
@@ -86,7 +97,7 @@ h1 {
     border: 1px solid #ccc;
 }
 
-/* 🔥 MODAL FINAL */
+/* Modal */
 .modal {
     display: none;
     position: fixed;
